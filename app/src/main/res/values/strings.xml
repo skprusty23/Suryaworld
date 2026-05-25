@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SuryaWorld</string>
+    <string name="biometric_prompt_title">Authenticate</string>
+    <string name="biometric_prompt_subtitle">Use biometric to access SuryaWorld</string>
+    <string name="biometric_prompt_cancel">Use PIN</string>
+    <string name="notification_channel_reminders">Reminders</string>
+    <string name="notification_channel_expense">Expense Reminders</string>
+    <string name="notification_channel_backup">Backup</string>
+</resources>

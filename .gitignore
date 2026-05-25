@@ -1,0 +1,47 @@
+# Built application files
+*.apk
+*.aab
+*.ap_
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Generated files
+bin/
+gen/
+out/
+build/
+.gradle/
+.idea/
+*.iml
+local.properties
+
+# Gradle wrapper (keep gradlew but ignore jar)
+gradle/wrapper/gradle-wrapper.jar
+
+# Log/temp files
+*.log
+*.tmp
+
+# Google Services (add manually per device — contains API keys)
+# google-services.json   ← uncomment this line if you want to exclude it
+
+# SQLite databases
+*.db
+*.sqlite
+
+# Android Keystore files (NEVER commit these)
+*.jks
+*.keystore
+
+# ProGuard
+proguard/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Schemas (optional — comment out if you want them tracked)
+# app/schemas/
