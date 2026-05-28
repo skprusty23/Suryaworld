@@ -127,19 +127,6 @@ dependencies {
     // Lottie animations
     implementation(libs.lottie.compose)
 
-    // Google Drive
-    implementation(libs.google.play.services.auth)
-    implementation(libs.google.api.client.android) {
-        exclude(group = "org.apache.httpcomponents")
-    }
-    implementation(libs.google.api.services.drive) {
-        exclude(group = "org.apache.httpcomponents")
-    }
-    implementation(libs.google.http.client.android) {
-        exclude(group = "org.apache.httpcomponents")
-    }
-    implementation(libs.coroutines.play.services)
-
     // Permissions
     implementation(libs.accompanist.permissions)
 

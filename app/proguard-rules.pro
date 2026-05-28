@@ -32,12 +32,6 @@
     kotlinx.serialization.KSerializer serializer(...);
 }
 
-# Google Drive / Google API Client
--keep class com.google.api.** { *; }
--keep class com.google.android.gms.** { *; }
--dontwarn com.google.api.**
--dontwarn com.google.android.gms.**
-
 # WorkManager
 -keep class * extends androidx.work.Worker
 -keep class * extends androidx.work.ListenableWorker

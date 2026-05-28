@@ -42,6 +42,20 @@ interface ExpenseDao {
 
     @Query("SELECT DISTINCT category FROM expenses ORDER BY category ASC")
     fun getAllCategories(): Flow<List<String>>
+
+    // ── One-shot suspend queries for report/export generation ─────────────────
+
+    @Query("SELECT * FROM expenses WHERE strftime('%Y-%m', date) = :yearMonth ORDER BY date DESC")
+    suspend fun getExpensesByMonthOnce(yearMonth: String): List<ExpenseEntity>
+
+    @Query("SELECT category, SUM(amount) as total FROM expenses WHERE strftime('%Y-%m', date) = :yearMonth GROUP BY category ORDER BY total DESC")
+    suspend fun getCategoryTotalsByMonthOnce(yearMonth: String): List<CategoryTotal>
+
+    @Query("SELECT * FROM expenses ORDER BY date DESC")
+    suspend fun getAllExpensesOnce(): List<ExpenseEntity>
+
+    @Query("SELECT * FROM expenses WHERE date BETWEEN :startDate AND :endDate ORDER BY date DESC")
+    suspend fun getExpensesByDateRangeOnce(startDate: LocalDate, endDate: LocalDate): List<ExpenseEntity>
 }
 
 data class CategoryTotal(val category: String, val total: Double)

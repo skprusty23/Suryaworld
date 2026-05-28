@@ -43,6 +43,10 @@ class ExpenseRepositoryImpl @Inject constructor(private val dao: ExpenseDao) : E
     override suspend fun insertExpense(expense: ExpenseEntity) = dao.insertExpense(expense)
     override suspend fun updateExpense(expense: ExpenseEntity) = dao.updateExpense(expense)
     override suspend fun deleteExpense(expense: ExpenseEntity) = dao.deleteExpense(expense)
+    override suspend fun getExpensesByMonthOnce(yearMonth: String) = dao.getExpensesByMonthOnce(yearMonth)
+    override suspend fun getCategoryTotalsByMonthOnce(yearMonth: String) = dao.getCategoryTotalsByMonthOnce(yearMonth)
+    override suspend fun getAllExpensesOnce() = dao.getAllExpensesOnce()
+    override suspend fun getExpensesByDateRangeOnce(startDate: LocalDate, endDate: LocalDate) = dao.getExpensesByDateRangeOnce(startDate, endDate)
 }
 
 class InvestmentRepositoryImpl @Inject constructor(private val dao: InvestmentDao) : InvestmentRepository {

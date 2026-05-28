@@ -42,6 +42,11 @@ interface ExpenseRepository {
     suspend fun insertExpense(expense: ExpenseEntity): Long
     suspend fun updateExpense(expense: ExpenseEntity)
     suspend fun deleteExpense(expense: ExpenseEntity)
+    // One-shot queries for report export
+    suspend fun getExpensesByMonthOnce(yearMonth: String): List<ExpenseEntity>
+    suspend fun getCategoryTotalsByMonthOnce(yearMonth: String): List<CategoryTotal>
+    suspend fun getAllExpensesOnce(): List<ExpenseEntity>
+    suspend fun getExpensesByDateRangeOnce(startDate: LocalDate, endDate: LocalDate): List<ExpenseEntity>
 }
 
 interface InvestmentRepository {
