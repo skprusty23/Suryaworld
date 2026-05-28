@@ -9,6 +9,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
+import net.sqlcipher.database.SQLiteDatabase
 
 @HiltAndroidApp
 class PersonalTrackerApp : Application(), Configuration.Provider {
@@ -17,6 +18,9 @@ class PersonalTrackerApp : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
+
+        SQLiteDatabase.loadLibs(this)
+
         createNotificationChannels()
     }
 
