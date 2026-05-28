@@ -263,6 +263,11 @@ fun SuryaWorldNavGraph() {
             SettingsScreen(
                 onNavigateToSecurity = { navController.navigate(NavRoutes.SECURITY_SETTINGS) },
                 onNavigateToBackup = { navController.navigate(NavRoutes.BACKUP) },
+                onLogout = {
+                    navController.navigate(NavRoutes.AUTH) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                },
                 onBack = { navController.popBackStack() }
             )
         }

@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.CreditCard
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Lock
@@ -27,6 +28,8 @@ import androidx.compose.material.icons.filled.Policy
 import androidx.compose.material.icons.filled.Restore
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -35,11 +38,14 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -57,6 +63,7 @@ import com.personaltracker.ui.components.PTTopBar
 fun SettingsScreen(
     onNavigateToSecurity: () -> Unit,
     onNavigateToBackup: () -> Unit,
+    onLogout: () -> Unit,
     onBack: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -66,6 +73,7 @@ fun SettingsScreen(
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     val uriHandler = LocalUriHandler.current
+    var showLogoutDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.message) {
         state.message?.let {
@@ -118,8 +126,8 @@ fun SettingsScreen(
             SettingsSectionHeader("Data")
 
             PTListItem(
-                title = "Backup to Google Drive",
-                subtitle = "Sync your encrypted backup to Google Drive",
+                title = "Backup",
+                subtitle = "Create or restore a local encrypted backup",
                 leadingIcon = Icons.Default.Backup,
                 leadingIconColor = MaterialTheme.colorScheme.primary,
                 onClick = onNavigateToBackup
@@ -194,8 +202,60 @@ fun SettingsScreen(
                 leadingIconColor = MaterialTheme.colorScheme.secondary
             )
 
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+            // ── Logout / Lock Section ─────────────────────────────────────────
+            SettingsSectionHeader("Session")
+
+            PTListItem(
+                title = "Lock App",
+                subtitle = "Return to PIN screen — your data stays safe",
+                leadingIcon = Icons.Default.ExitToApp,
+                leadingIconColor = MaterialTheme.colorScheme.error,
+                onClick = { showLogoutDialog = true }
+            )
+
             Spacer(modifier = Modifier.height(32.dp))
         }
+    }
+
+    // ── Logout confirmation dialog ────────────────────────────────────────────
+    if (showLogoutDialog) {
+        AlertDialog(
+            onDismissRequest = { showLogoutDialog = false },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Lock,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error
+                )
+            },
+            title = { Text("Lock App?") },
+            text = {
+                Text(
+                    "You will be returned to the PIN screen. " +
+                    "Your data will not be deleted."
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showLogoutDialog = false
+                        onLogout()
+                    },
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Text("Lock")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showLogoutDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 }
 
