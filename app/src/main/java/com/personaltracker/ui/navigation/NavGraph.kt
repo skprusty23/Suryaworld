@@ -71,7 +71,14 @@ fun SuryaWorldNavGraph() {
 
         // ── Dashboard ──────────────────────────────────────────────────────────
         composable(NavRoutes.DASHBOARD) {
-            DashboardScreen(onNavigate = { route -> navController.navigate(route) })
+            DashboardScreen(
+                onNavigate = { route -> navController.navigate(route) },
+                onLogout = {
+                    navController.navigate(NavRoutes.AUTH) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                }
+            )
         }
 
         // ── Documents ─────────────────────────────────────────────────────────
