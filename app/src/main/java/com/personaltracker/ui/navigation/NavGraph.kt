@@ -16,6 +16,7 @@ import com.personaltracker.ui.screens.dashboard.DashboardScreen
 import com.personaltracker.ui.screens.documents.AddDocumentScreen
 import com.personaltracker.ui.screens.documents.DocumentDetailScreen
 import com.personaltracker.ui.screens.documents.DocumentsScreen
+import com.personaltracker.ui.screens.documents.EditDocumentScreen
 import com.personaltracker.ui.screens.emi.AddEmiScreen
 import com.personaltracker.ui.screens.emi.EmiDetailScreen
 import com.personaltracker.ui.screens.emi.EmiScreen
@@ -96,7 +97,16 @@ fun SuryaWorldNavGraph() {
             NavRoutes.DOCUMENT_DETAIL,
             arguments = listOf(navArgument("id") { type = NavType.LongType })
         ) {
-            DocumentDetailScreen(onBack = { navController.popBackStack() })
+            DocumentDetailScreen(
+                onBack = { navController.popBackStack() },
+                onEdit = { id -> navController.navigate(NavRoutes.editDocument(id)) }
+            )
+        }
+        composable(
+            NavRoutes.EDIT_DOCUMENT,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })
+        ) {
+            EditDocumentScreen(onBack = { navController.popBackStack() })
         }
 
         // ── Credentials ───────────────────────────────────────────────────────

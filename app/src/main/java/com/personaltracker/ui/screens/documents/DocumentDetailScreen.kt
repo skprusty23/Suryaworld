@@ -1,5 +1,7 @@
 package com.personaltracker.ui.screens.documents
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -101,12 +104,22 @@ class DocumentDetailViewModel @Inject constructor(
 @Composable
 fun DocumentDetailScreen(
     onBack: () -> Unit,
-    onEdit: (Long) -> Unit = {},
+    onEdit: (Long) -> Unit,
     viewModel: DocumentDetailViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val context = LocalContext.current
     var showDeleteDialog by remember { mutableStateOf(false) }
+    var showNoFileSnackbar by remember { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
     val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+
+    LaunchedEffect(showNoFileSnackbar) {
+        if (showNoFileSnackbar) {
+            snackbarHostState.showSnackbar("No document scan attached")
+            showNoFileSnackbar = false
+        }
+    }
 
     // Navigate back after delete
     LaunchedEffect(state.isDeleted) {
@@ -120,16 +133,38 @@ fun DocumentDetailScreen(
                 onBack = onBack,
                 actions = {
                     state.document?.let { doc ->
+                        // Share / Download
+                        IconButton(onClick = {
+                            val uriString = doc.fileUri
+                            if (uriString != null) {
+                                val uri = Uri.parse(uriString)
+                                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                    type = "image/*"
+                                    putExtra(Intent.EXTRA_STREAM, uri)
+                                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                }
+                                context.startActivity(
+                                    Intent.createChooser(shareIntent, "Share ${doc.name}")
+                                )
+                            } else {
+                                showNoFileSnackbar = true
+                            }
+                        }) {
+                            Icon(Icons.Default.Share, contentDescription = "Share", tint = Color.White)
+                        }
+                        // Edit
                         IconButton(onClick = { onEdit(doc.id) }) {
                             Icon(Icons.Default.Edit, contentDescription = "Edit", tint = Color.White)
                         }
+                        // Delete
                         IconButton(onClick = { showDeleteDialog = true }) {
                             Icon(Icons.Default.Delete, contentDescription = "Delete", tint = Color.White)
                         }
                     }
                 }
             )
-        }
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
         when {
             state.isLoading -> {

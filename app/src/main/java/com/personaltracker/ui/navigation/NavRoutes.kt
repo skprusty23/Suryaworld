@@ -10,6 +10,7 @@ object NavRoutes {
     const val DOCUMENTS = "documents"
     const val DOCUMENT_DETAIL = "document_detail/{id}"
     const val ADD_DOCUMENT = "add_document"
+    const val EDIT_DOCUMENT = "edit_document/{id}"
 
     // Credentials
     const val CREDENTIALS = "credentials"
@@ -56,6 +57,7 @@ object NavRoutes {
     const val SECURITY_SETTINGS = "security_settings"
 
     fun documentDetail(id: Long) = "document_detail/$id"
+    fun editDocument(id: Long) = "edit_document/$id"
     fun credentialDetail(id: Long) = "credential_detail/$id"
     fun investmentDetail(id: Long) = "investment_detail/$id"
     fun emiDetail(id: Long) = "emi_detail/$id"
