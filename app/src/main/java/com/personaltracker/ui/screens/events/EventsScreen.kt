@@ -126,13 +126,13 @@ fun EventsScreen(
                     selected = !state.showAll,
                     onClick = { viewModel.setShowAll(false) },
                     label = { Text("Upcoming (30 days)") },
-                    leadingIcon = { Icon(Icons.Default.Upcoming, null, modifier = Modifier.size(16.dp)) }
+                    leadingIcon = { Icon(Icons.Default.Schedule, null, modifier = Modifier.size(16.dp)) }
                 )
                 FilterChip(
                     selected = state.showAll,
                     onClick = { viewModel.setShowAll(true) },
                     label = { Text("All Events") },
-                    leadingIcon = { Icon(Icons.Default.CalendarMonth, null, modifier = Modifier.size(16.dp)) }
+                    leadingIcon = { Icon(Icons.Default.DateRange, null, modifier = Modifier.size(16.dp)) }
                 )
             }
 
@@ -145,7 +145,7 @@ fun EventsScreen(
             } else if (displayList.isEmpty()) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Default.EventBusy, null,
+                        Icon(Icons.Default.DateRange, null,
                             modifier = Modifier.size(64.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f))
                         Spacer(Modifier.height(12.dp))
@@ -651,7 +651,7 @@ fun EventDetailScreen(
                             )
                         ) {
                             Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                                Icon(Icons.Default.Event, null,
+                                Icon(Icons.Default.CalendarToday, null,
                                     modifier = Modifier.size(40.dp),
                                     tint = if (isOverdue) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary)
                                 Spacer(Modifier.height(8.dp))
@@ -677,9 +677,9 @@ fun EventDetailScreen(
                                     DetailRow(Icons.Default.Description, "Description", event.description)
                                     HorizontalDivider()
                                 }
-                                DetailRow(Icons.Default.Category, "Category", event.category)
+                                DetailRow(Icons.Default.Label, "Category", event.category)
                                 HorizontalDivider()
-                                DetailRow(Icons.Default.PriorityHigh, "Priority", event.priority,
+                                DetailRow(Icons.Default.Warning, "Priority", event.priority,
                                     valueColor = priorityColor)
                                 HorizontalDivider()
                                 DetailRow(Icons.Default.Repeat, "Repeat", event.repeatType)

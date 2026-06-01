@@ -184,7 +184,7 @@ fun NotesScreen(
             } else if (state.notes.isEmpty()) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Default.NoteAlt, null,
+                        Icon(Icons.Default.Create, null,
                             modifier = Modifier.size(64.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f))
                         Spacer(Modifier.height(12.dp))

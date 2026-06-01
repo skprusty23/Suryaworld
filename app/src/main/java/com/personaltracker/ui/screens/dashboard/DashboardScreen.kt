@@ -106,8 +106,8 @@ private val modules = listOf(
     ModuleItem("School", Icons.Default.School, Color(0xFF00ACC1), NavRoutes.SCHOOL),
     ModuleItem("Travel", Icons.Default.Flight, Color(0xFF558B2F), NavRoutes.TRAVEL),
     ModuleItem("Groups", Icons.Default.Group, Color(0xFF6D4C41), NavRoutes.GROUP_EXPENSES),
-    ModuleItem("Notes", Icons.Default.NoteAlt, Color(0xFF5C6BC0), NavRoutes.NOTES),
-    ModuleItem("Events", Icons.Default.Event, Color(0xFF00838F), NavRoutes.EVENTS),
+    ModuleItem("Notes", Icons.Default.Create, Color(0xFF5C6BC0), NavRoutes.NOTES),
+    ModuleItem("Events", Icons.Default.CalendarToday, Color(0xFF00838F), NavRoutes.EVENTS),
     ModuleItem("Reports", Icons.Default.Assessment, Color(0xFF37474F), NavRoutes.EXPENSE_REPORTS)
 )
 
