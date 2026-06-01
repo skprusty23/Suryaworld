@@ -38,4 +38,10 @@ abstract class RepositoryModule {
 
     @Binds @Singleton
     abstract fun bindGroupExpenseRepository(impl: GroupExpenseRepositoryImpl): GroupExpenseRepository
+
+    @Binds @Singleton
+    abstract fun bindNoteRepository(impl: NoteRepositoryImpl): NoteRepository
+
+    @Binds @Singleton
+    abstract fun bindEventRepository(impl: EventRepositoryImpl): EventRepository
 }

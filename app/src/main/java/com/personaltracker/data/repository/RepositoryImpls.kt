@@ -134,3 +134,29 @@ class GroupExpenseRepositoryImpl @Inject constructor(private val dao: GroupExpen
     override suspend fun updateGroupExpense(expense: GroupExpenseEntity) = dao.updateGroupExpense(expense)
     override suspend fun deleteGroupExpense(expense: GroupExpenseEntity) = dao.deleteGroupExpense(expense)
 }
+
+class NoteRepositoryImpl @Inject constructor(private val dao: com.personaltracker.data.database.dao.NoteDao) : com.personaltracker.domain.repository.NoteRepository {
+    override fun getAllNotes() = dao.getAllNotes()
+    override fun searchNotes(query: String) = dao.searchNotes(query)
+    override fun getNotesByCategory(category: String) = dao.getNotesByCategory(category)
+    override fun getPinnedNotes() = dao.getPinnedNotes()
+    override fun getAllCategories() = dao.getAllCategories()
+    override suspend fun getNoteById(id: Long) = dao.getNoteById(id)
+    override suspend fun insertNote(note: com.personaltracker.data.database.entity.NoteEntity) = dao.insertNote(note)
+    override suspend fun updateNote(note: com.personaltracker.data.database.entity.NoteEntity) = dao.updateNote(note)
+    override suspend fun deleteNote(note: com.personaltracker.data.database.entity.NoteEntity) = dao.deleteNote(note)
+}
+
+class EventRepositoryImpl @Inject constructor(private val dao: com.personaltracker.data.database.dao.EventDao) : com.personaltracker.domain.repository.EventRepository {
+    override fun getAllActiveEvents() = dao.getAllActiveEvents()
+    override fun getAllEvents() = dao.getAllEvents()
+    override fun getEventsByDate(date: java.time.LocalDate) = dao.getEventsByDate(date)
+    override fun getUpcomingEvents(today: java.time.LocalDate, future: java.time.LocalDate) = dao.getUpcomingEvents(today, future)
+    override fun getEventsByCategory(category: String) = dao.getEventsByCategory(category)
+    override fun getAllCategories() = dao.getAllCategories()
+    override suspend fun getEventsForToday(today: java.time.LocalDate) = dao.getEventsForToday(today)
+    override suspend fun getEventById(id: Long) = dao.getEventById(id)
+    override suspend fun insertEvent(event: com.personaltracker.data.database.entity.EventEntity) = dao.insertEvent(event)
+    override suspend fun updateEvent(event: com.personaltracker.data.database.entity.EventEntity) = dao.updateEvent(event)
+    override suspend fun deleteEvent(event: com.personaltracker.data.database.entity.EventEntity) = dao.deleteEvent(event)
+}

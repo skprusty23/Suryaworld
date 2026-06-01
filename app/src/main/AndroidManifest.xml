@@ -46,6 +46,11 @@
             </intent-filter>
         </activity>
 
+        <!-- Event reminder alarm receiver -->
+        <receiver
+            android:name=".ui.screens.events.EventAlarmReceiver"
+            android:exported="false" />
+
         <!-- WorkManager -->
         <provider
             android:name="androidx.startup.InitializationProvider"

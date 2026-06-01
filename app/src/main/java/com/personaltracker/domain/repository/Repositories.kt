@@ -116,6 +116,32 @@ interface TravelRepository {
     suspend fun deleteTravelExpense(expense: TravelExpenseEntity)
 }
 
+interface NoteRepository {
+    fun getAllNotes(): Flow<List<com.personaltracker.data.database.entity.NoteEntity>>
+    fun searchNotes(query: String): Flow<List<com.personaltracker.data.database.entity.NoteEntity>>
+    fun getNotesByCategory(category: String): Flow<List<com.personaltracker.data.database.entity.NoteEntity>>
+    fun getPinnedNotes(): Flow<List<com.personaltracker.data.database.entity.NoteEntity>>
+    fun getAllCategories(): Flow<List<String>>
+    suspend fun getNoteById(id: Long): com.personaltracker.data.database.entity.NoteEntity?
+    suspend fun insertNote(note: com.personaltracker.data.database.entity.NoteEntity): Long
+    suspend fun updateNote(note: com.personaltracker.data.database.entity.NoteEntity)
+    suspend fun deleteNote(note: com.personaltracker.data.database.entity.NoteEntity)
+}
+
+interface EventRepository {
+    fun getAllActiveEvents(): Flow<List<com.personaltracker.data.database.entity.EventEntity>>
+    fun getAllEvents(): Flow<List<com.personaltracker.data.database.entity.EventEntity>>
+    fun getEventsByDate(date: LocalDate): Flow<List<com.personaltracker.data.database.entity.EventEntity>>
+    fun getUpcomingEvents(today: LocalDate, future: LocalDate): Flow<List<com.personaltracker.data.database.entity.EventEntity>>
+    fun getEventsByCategory(category: String): Flow<List<com.personaltracker.data.database.entity.EventEntity>>
+    fun getAllCategories(): Flow<List<String>>
+    suspend fun getEventsForToday(today: LocalDate): List<com.personaltracker.data.database.entity.EventEntity>
+    suspend fun getEventById(id: Long): com.personaltracker.data.database.entity.EventEntity?
+    suspend fun insertEvent(event: com.personaltracker.data.database.entity.EventEntity): Long
+    suspend fun updateEvent(event: com.personaltracker.data.database.entity.EventEntity)
+    suspend fun deleteEvent(event: com.personaltracker.data.database.entity.EventEntity)
+}
+
 interface GroupExpenseRepository {
     fun getAllGroups(): Flow<List<ExpenseGroupEntity>>
     fun getActiveGroups(): Flow<List<ExpenseGroupEntity>>

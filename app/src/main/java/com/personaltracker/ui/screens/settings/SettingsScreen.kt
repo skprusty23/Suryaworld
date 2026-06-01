@@ -18,6 +18,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Backup
+import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.CreditCard
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Fingerprint
@@ -63,6 +64,9 @@ import com.personaltracker.ui.components.PTTopBar
 fun SettingsScreen(
     onNavigateToSecurity: () -> Unit,
     onNavigateToBackup: () -> Unit,
+    onNavigateToAbout: () -> Unit = {},
+    onNavigateToPrivacyPolicy: () -> Unit = {},
+    onNavigateToAppInfo: () -> Unit = {},
     onLogout: () -> Unit,
     onBack: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel()
@@ -179,27 +183,34 @@ fun SettingsScreen(
 
             PTListItem(
                 title = "Version",
-                subtitle = "SuryaWorld",
+                subtitle = "WealthHub — Personal Finance Manager",
                 leadingIcon = Icons.Default.Info,
                 leadingIconColor = MaterialTheme.colorScheme.secondary,
                 trailingText = BuildConfig.VERSION_NAME
             )
 
             PTListItem(
-                title = "Privacy Policy",
-                subtitle = "View our privacy policy",
-                leadingIcon = Icons.Default.Policy,
+                title = "About WealthHub",
+                subtitle = "App overview and developer info",
+                leadingIcon = Icons.Default.AccountCircle,
                 leadingIconColor = MaterialTheme.colorScheme.secondary,
-                onClick = {
-                    runCatching { uriHandler.openUri("https://suryaworld.app/privacy") }
-                }
+                onClick = onNavigateToAbout
             )
 
             PTListItem(
-                title = "App Info",
-                subtitle = "Package: com.personaltracker",
-                leadingIcon = Icons.Default.AccountCircle,
-                leadingIconColor = MaterialTheme.colorScheme.secondary
+                title = "App Information",
+                subtitle = "Version, platform, security details",
+                leadingIcon = Icons.Default.PhoneAndroid,
+                leadingIconColor = MaterialTheme.colorScheme.secondary,
+                onClick = onNavigateToAppInfo
+            )
+
+            PTListItem(
+                title = "Privacy Policy",
+                subtitle = "How your data is protected",
+                leadingIcon = Icons.Default.Policy,
+                leadingIconColor = MaterialTheme.colorScheme.secondary,
+                onClick = onNavigateToPrivacyPolicy
             )
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))

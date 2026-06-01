@@ -51,10 +51,25 @@ object NavRoutes {
     const val GROUP_DETAIL = "group_detail/{id}"
     const val ADD_GROUP = "add_group"
 
+    // Notes
+    const val NOTES = "notes"
+    const val NOTE_DETAIL = "note_detail/{id}"
+    const val ADD_NOTE = "add_note"
+    const val EDIT_NOTE = "edit_note/{id}"
+
+    // Events
+    const val EVENTS = "events"
+    const val EVENT_DETAIL = "event_detail/{id}"
+    const val ADD_EVENT = "add_event"
+    const val EDIT_EVENT = "edit_event/{id}"
+
     // Settings
     const val SETTINGS = "settings"
     const val BACKUP = "backup"
     const val SECURITY_SETTINGS = "security_settings"
+    const val ABOUT = "about"
+    const val PRIVACY_POLICY = "privacy_policy"
+    const val APP_INFO = "app_info"
 
     fun documentDetail(id: Long) = "document_detail/$id"
     fun editDocument(id: Long) = "edit_document/$id"
@@ -64,4 +79,8 @@ object NavRoutes {
     fun tripDetail(id: Long) = "trip_detail/$id"
     fun addTravelExpense(tripId: Long) = "add_travel_expense/$tripId"
     fun groupDetail(id: Long) = "group_detail/$id"
+    fun noteDetail(id: Long) = "note_detail/$id"
+    fun editNote(id: Long) = "edit_note/$id"
+    fun eventDetail(id: Long) = "event_detail/$id"
+    fun editEvent(id: Long) = "edit_event/$id"
 }

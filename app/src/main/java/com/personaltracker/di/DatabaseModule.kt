@@ -28,7 +28,7 @@ object DatabaseModule {
         val factory = SupportFactory(passphrase)
         return Room.databaseBuilder(context, AppDatabase::class.java, "personal_tracker.db")
             .openHelperFactory(factory)
-            .fallbackToDestructiveMigration()
+            .addMigrations(AppDatabase.MIGRATION_1_2, AppDatabase.MIGRATION_2_3)
             .build()
     }
 
@@ -41,4 +41,6 @@ object DatabaseModule {
     @Provides fun provideSchoolExpenseDao(db: AppDatabase) = db.schoolExpenseDao()
     @Provides fun provideTravelDao(db: AppDatabase) = db.travelDao()
     @Provides fun provideGroupExpenseDao(db: AppDatabase) = db.groupExpenseDao()
+    @Provides fun provideNoteDao(db: AppDatabase) = db.noteDao()
+    @Provides fun provideEventDao(db: AppDatabase) = db.eventDao()
 }

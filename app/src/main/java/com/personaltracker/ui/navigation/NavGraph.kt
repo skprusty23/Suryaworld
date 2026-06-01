@@ -33,6 +33,15 @@ import com.personaltracker.ui.screens.investments.InvestmentDetailScreen
 import com.personaltracker.ui.screens.investments.InvestmentsScreen
 import com.personaltracker.ui.screens.school.AddSchoolExpenseScreen
 import com.personaltracker.ui.screens.school.SchoolScreen
+import com.personaltracker.ui.screens.events.AddEventScreen
+import com.personaltracker.ui.screens.events.EventDetailScreen
+import com.personaltracker.ui.screens.events.EventsScreen
+import com.personaltracker.ui.screens.notes.AddNoteScreen
+import com.personaltracker.ui.screens.notes.NoteDetailScreen
+import com.personaltracker.ui.screens.notes.NotesScreen
+import com.personaltracker.ui.screens.settings.AboutScreen
+import com.personaltracker.ui.screens.settings.AppInfoScreen
+import com.personaltracker.ui.screens.settings.PrivacyPolicyScreen
 import com.personaltracker.ui.screens.settings.SecuritySettingsScreen
 import com.personaltracker.ui.screens.settings.SettingsScreen
 import com.personaltracker.ui.screens.splash.SplashScreen
@@ -42,7 +51,7 @@ import com.personaltracker.ui.screens.travel.TravelScreen
 import com.personaltracker.ui.screens.travel.TripDetailScreen
 
 @Composable
-fun SuryaWorldNavGraph() {
+fun WealthHubNavGraph() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = NavRoutes.SPLASH) {
@@ -275,11 +284,74 @@ fun SuryaWorldNavGraph() {
             GroupDetailScreen(onBack = { navController.popBackStack() })
         }
 
+        // ── Notes ─────────────────────────────────────────────────────────────
+        composable(NavRoutes.NOTES) {
+            NotesScreen(
+                onNavigateToAdd = { navController.navigate(NavRoutes.ADD_NOTE) },
+                onNavigateToDetail = { id -> navController.navigate(NavRoutes.noteDetail(id)) },
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(NavRoutes.ADD_NOTE) {
+            AddNoteScreen(onBack = { navController.popBackStack() })
+        }
+        composable(
+            NavRoutes.NOTE_DETAIL,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })
+        ) { backStack ->
+            val noteId = backStack.arguments!!.getLong("id")
+            NoteDetailScreen(
+                noteId = noteId,
+                onBack = { navController.popBackStack() },
+                onEdit = { id -> navController.navigate(NavRoutes.editNote(id)) }
+            )
+        }
+        composable(
+            NavRoutes.EDIT_NOTE,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })
+        ) { backStack ->
+            val noteId = backStack.arguments!!.getLong("id")
+            AddNoteScreen(noteId = noteId, onBack = { navController.popBackStack() })
+        }
+
+        // ── Events ─────────────────────────────────────────────────────────────
+        composable(NavRoutes.EVENTS) {
+            EventsScreen(
+                onNavigateToAdd = { navController.navigate(NavRoutes.ADD_EVENT) },
+                onNavigateToDetail = { id -> navController.navigate(NavRoutes.eventDetail(id)) },
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(NavRoutes.ADD_EVENT) {
+            AddEventScreen(onBack = { navController.popBackStack() })
+        }
+        composable(
+            NavRoutes.EVENT_DETAIL,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })
+        ) { backStack ->
+            val eventId = backStack.arguments!!.getLong("id")
+            EventDetailScreen(
+                eventId = eventId,
+                onBack = { navController.popBackStack() },
+                onEdit = { id -> navController.navigate(NavRoutes.editEvent(id)) }
+            )
+        }
+        composable(
+            NavRoutes.EDIT_EVENT,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })
+        ) { backStack ->
+            val eventId = backStack.arguments!!.getLong("id")
+            AddEventScreen(eventId = eventId, onBack = { navController.popBackStack() })
+        }
+
         // ── Settings ──────────────────────────────────────────────────────────
         composable(NavRoutes.SETTINGS) {
             SettingsScreen(
                 onNavigateToSecurity = { navController.navigate(NavRoutes.SECURITY_SETTINGS) },
                 onNavigateToBackup = { navController.navigate(NavRoutes.BACKUP) },
+                onNavigateToAbout = { navController.navigate(NavRoutes.ABOUT) },
+                onNavigateToPrivacyPolicy = { navController.navigate(NavRoutes.PRIVACY_POLICY) },
+                onNavigateToAppInfo = { navController.navigate(NavRoutes.APP_INFO) },
                 onLogout = {
                     navController.navigate(NavRoutes.AUTH) {
                         popUpTo(0) { inclusive = true }
@@ -293,6 +365,15 @@ fun SuryaWorldNavGraph() {
         }
         composable(NavRoutes.SECURITY_SETTINGS) {
             SecuritySettingsScreen(onBack = { navController.popBackStack() })
+        }
+        composable(NavRoutes.ABOUT) {
+            AboutScreen(onBack = { navController.popBackStack() })
+        }
+        composable(NavRoutes.PRIVACY_POLICY) {
+            PrivacyPolicyScreen(onBack = { navController.popBackStack() })
+        }
+        composable(NavRoutes.APP_INFO) {
+            AppInfoScreen(onBack = { navController.popBackStack() })
         }
     }
 }
