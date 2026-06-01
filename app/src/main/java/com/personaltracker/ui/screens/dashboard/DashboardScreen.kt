@@ -18,25 +18,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBalance
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Assessment
-import androidx.compose.material.icons.filled.AttachMoney
-import androidx.compose.material.icons.filled.Badge
-import androidx.compose.material.icons.filled.CreditCard
-import androidx.compose.material.icons.filled.Description
-import androidx.compose.material.icons.filled.Equalizer
-import androidx.compose.material.icons.filled.Flight
-import androidx.compose.material.icons.filled.Group
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.MoreHoriz
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Savings
-import androidx.compose.material.icons.filled.School
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.TrendingUp
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -106,8 +88,8 @@ private val modules = listOf(
     ModuleItem("School", Icons.Default.School, Color(0xFF00ACC1), NavRoutes.SCHOOL),
     ModuleItem("Travel", Icons.Default.Flight, Color(0xFF558B2F), NavRoutes.TRAVEL),
     ModuleItem("Groups", Icons.Default.Group, Color(0xFF6D4C41), NavRoutes.GROUP_EXPENSES),
-    ModuleItem("Notes", Icons.Default.Edit, Color(0xFF5C6BC0), NavRoutes.NOTES),
-    ModuleItem("Events", Icons.Default.Alarm, Color(0xFF00838F), NavRoutes.EVENTS),
+    ModuleItem("Notes", Icons.Default.Note, Color(0xFF5C6BC0), NavRoutes.NOTES),
+    ModuleItem("Events", Icons.Default.Event, Color(0xFF00838F), NavRoutes.EVENTS),
     ModuleItem("Reports", Icons.Default.Assessment, Color(0xFF37474F), NavRoutes.EXPENSE_REPORTS)
 )
 

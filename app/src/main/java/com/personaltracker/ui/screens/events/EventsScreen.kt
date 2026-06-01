@@ -464,7 +464,7 @@ fun AddEventScreen(
                     label = { Text("Event Date") }, readOnly = true,
                     trailingIcon = {
                         IconButton(onClick = { showEventDatePicker = true }) {
-                            Icon(Icons.Default.Alarm, null)
+                            Icon(Icons.Default.CalendarToday, null)
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
@@ -544,7 +544,7 @@ fun AddEventScreen(
                                 label = { Text("Reminder Date") },
                                 trailingIcon = {
                                     IconButton(onClick = { showReminderDatePicker = true }) {
-                                        Icon(Icons.Default.Alarm, null)
+                                        Icon(Icons.Default.CalendarToday, null)
                                     }
                                 },
                                 modifier = Modifier.fillMaxWidth()
@@ -651,7 +651,7 @@ fun EventDetailScreen(
                             )
                         ) {
                             Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                                Icon(Icons.Default.Alarm, null,
+                                Icon(Icons.Default.CalendarToday, null,
                                     modifier = Modifier.size(40.dp),
                                     tint = if (isOverdue) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary)
                                 Spacer(Modifier.height(8.dp))
