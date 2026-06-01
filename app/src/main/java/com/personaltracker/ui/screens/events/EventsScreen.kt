@@ -282,7 +282,7 @@ fun EventCard(event: EventEntity, onClick: () -> Unit, onDelete: () -> Unit) {
                 val label = when {
                     isOverdue -> "Overdue"
                     isToday   -> "Today"
-                    daysUntil == 1L -> "Tomorrow"
+                    daysUntil == 1 -> "Tomorrow"
                     else -> "In ${daysUntil}d"
                 }
                 val labelColor = when {

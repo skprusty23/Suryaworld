@@ -16,7 +16,7 @@ import java.time.ZoneId
 
 object EventReminderScheduler {
 
-    private const val CHANNEL_ID = "event_reminders"
+    const val CHANNEL_ID = "event_reminders"
     private const val CHANNEL_NAME = "Event Reminders"
 
     fun createNotificationChannel(context: Context) {
