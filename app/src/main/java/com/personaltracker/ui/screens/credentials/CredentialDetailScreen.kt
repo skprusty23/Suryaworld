@@ -42,6 +42,7 @@ import javax.inject.Inject
 data class CredentialDetailState(
     val credential: CredentialEntity? = null,
     val decryptedPassword: String = "",
+    val decryptedProfilePassword: String = "",
     val isLoading: Boolean = true,
     val isDeleted: Boolean = false,
     val error: String? = null
@@ -71,9 +72,14 @@ class CredentialDetailViewModel @Inject constructor(
                     try { securityManager.decrypt(cred.passwordEncrypted) }
                     catch (e: Exception) { "" }
                 } else ""
+                val decryptedProfile = if (cred?.profilePassword != null) {
+                    try { securityManager.decrypt(cred.profilePassword) }
+                    catch (e: Exception) { "" }
+                } else ""
                 _state.value = CredentialDetailState(
                     credential = cred,
                     decryptedPassword = decrypted,
+                    decryptedProfilePassword = decryptedProfile,
                     isLoading = false
                 )
             } catch (e: Exception) {
@@ -120,6 +126,7 @@ fun CredentialDetailScreen(
     val state by viewModel.state.collectAsState()
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showPassword by remember { mutableStateOf(false) }
+    var showProfilePassword by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
     val view = LocalView.current
@@ -317,6 +324,31 @@ fun CredentialDetailScreen(
                                     onCopy = {
                                         copyToClipboard(context, "Account Number", it)
                                         scope.launch { snackbarHostState.showSnackbar("Account number copied") }
+                                    }
+                                )
+                            }
+
+                            cred.ifscCode?.takeIf { it.isNotBlank() }?.let {
+                                CredDetailRowWithCopy(
+                                    icon = Icons.Default.AccountBalance,
+                                    label = "IFSC Code",
+                                    value = it,
+                                    onCopy = {
+                                        copyToClipboard(context, "IFSC Code", it)
+                                        scope.launch { snackbarHostState.showSnackbar("IFSC code copied") }
+                                    }
+                                )
+                            }
+
+                            if (state.decryptedProfilePassword.isNotEmpty()) {
+                                CredPasswordRow(
+                                    label = "Profile / Transaction Password",
+                                    password = state.decryptedProfilePassword,
+                                    showPassword = showProfilePassword,
+                                    onToggleVisibility = { showProfilePassword = !showProfilePassword },
+                                    onCopy = {
+                                        copyToClipboard(context, "Profile Password", state.decryptedProfilePassword)
+                                        scope.launch { snackbarHostState.showSnackbar("Profile password copied") }
                                     }
                                 )
                             }

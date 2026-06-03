@@ -40,6 +40,18 @@ abstract class RepositoryModule {
     abstract fun bindGroupExpenseRepository(impl: GroupExpenseRepositoryImpl): GroupExpenseRepository
 
     @Binds @Singleton
+    abstract fun bindInsuranceRepository(impl: InsuranceRepositoryImpl): InsuranceRepository
+
+    @Binds @Singleton
+    abstract fun bindMutualFundRepository(impl: MutualFundRepositoryImpl): MutualFundRepository
+
+    @Binds @Singleton
+    abstract fun bindDepositRepository(impl: DepositRepositoryImpl): DepositRepository
+
+    @Binds @Singleton
+    abstract fun bindStockRepository(impl: StockRepositoryImpl): StockRepository
+
+    @Binds @Singleton
     abstract fun bindNoteRepository(impl: NoteRepositoryImpl): NoteRepository
 
     @Binds @Singleton

@@ -116,6 +116,49 @@ interface TravelRepository {
     suspend fun deleteTravelExpense(expense: TravelExpenseEntity)
 }
 
+interface InsuranceRepository {
+    fun getAll(): Flow<List<com.personaltracker.data.database.entity.InsuranceEntity>>
+    fun getAllActive(): Flow<List<com.personaltracker.data.database.entity.InsuranceEntity>>
+    fun getByType(type: com.personaltracker.data.database.entity.InsuranceType): Flow<List<com.personaltracker.data.database.entity.InsuranceEntity>>
+    fun getTotalCoverage(): Flow<Double>
+    suspend fun getById(id: Long): com.personaltracker.data.database.entity.InsuranceEntity?
+    suspend fun insert(entity: com.personaltracker.data.database.entity.InsuranceEntity): Long
+    suspend fun update(entity: com.personaltracker.data.database.entity.InsuranceEntity)
+    suspend fun delete(entity: com.personaltracker.data.database.entity.InsuranceEntity)
+}
+
+interface MutualFundRepository {
+    fun getAll(): Flow<List<com.personaltracker.data.database.entity.MutualFundEntity>>
+    fun getAllActive(): Flow<List<com.personaltracker.data.database.entity.MutualFundEntity>>
+    fun getTotalSipAmount(): Flow<Double>
+    fun getTotalLumpsumAmount(): Flow<Double>
+    suspend fun getById(id: Long): com.personaltracker.data.database.entity.MutualFundEntity?
+    suspend fun insert(entity: com.personaltracker.data.database.entity.MutualFundEntity): Long
+    suspend fun update(entity: com.personaltracker.data.database.entity.MutualFundEntity)
+    suspend fun delete(entity: com.personaltracker.data.database.entity.MutualFundEntity)
+}
+
+interface DepositRepository {
+    fun getAll(): Flow<List<com.personaltracker.data.database.entity.DepositEntity>>
+    fun getAllActive(): Flow<List<com.personaltracker.data.database.entity.DepositEntity>>
+    fun getByType(type: com.personaltracker.data.database.entity.DepositType): Flow<List<com.personaltracker.data.database.entity.DepositEntity>>
+    fun getTotalDeposited(): Flow<Double>
+    suspend fun getById(id: Long): com.personaltracker.data.database.entity.DepositEntity?
+    suspend fun insert(entity: com.personaltracker.data.database.entity.DepositEntity): Long
+    suspend fun update(entity: com.personaltracker.data.database.entity.DepositEntity)
+    suspend fun delete(entity: com.personaltracker.data.database.entity.DepositEntity)
+}
+
+interface StockRepository {
+    fun getAll(): Flow<List<com.personaltracker.data.database.entity.StockEntity>>
+    fun getAllActive(): Flow<List<com.personaltracker.data.database.entity.StockEntity>>
+    fun getTotalInvested(): Flow<Double>
+    suspend fun getById(id: Long): com.personaltracker.data.database.entity.StockEntity?
+    suspend fun insert(entity: com.personaltracker.data.database.entity.StockEntity): Long
+    suspend fun update(entity: com.personaltracker.data.database.entity.StockEntity)
+    suspend fun delete(entity: com.personaltracker.data.database.entity.StockEntity)
+}
+
 interface NoteRepository {
     fun getAllNotes(): Flow<List<com.personaltracker.data.database.entity.NoteEntity>>
     fun searchNotes(query: String): Flow<List<com.personaltracker.data.database.entity.NoteEntity>>

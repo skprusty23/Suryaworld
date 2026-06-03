@@ -135,6 +135,49 @@ class GroupExpenseRepositoryImpl @Inject constructor(private val dao: GroupExpen
     override suspend fun deleteGroupExpense(expense: GroupExpenseEntity) = dao.deleteGroupExpense(expense)
 }
 
+class InsuranceRepositoryImpl @Inject constructor(private val dao: com.personaltracker.data.database.dao.InsuranceDao) : com.personaltracker.domain.repository.InsuranceRepository {
+    override fun getAll() = dao.getAll()
+    override fun getAllActive() = dao.getAllActive()
+    override fun getByType(type: com.personaltracker.data.database.entity.InsuranceType) = dao.getByType(type)
+    override fun getTotalCoverage() = dao.getTotalCoverage()
+    override suspend fun getById(id: Long) = dao.getById(id)
+    override suspend fun insert(entity: com.personaltracker.data.database.entity.InsuranceEntity) = dao.insert(entity)
+    override suspend fun update(entity: com.personaltracker.data.database.entity.InsuranceEntity) = dao.update(entity)
+    override suspend fun delete(entity: com.personaltracker.data.database.entity.InsuranceEntity) = dao.delete(entity)
+}
+
+class MutualFundRepositoryImpl @Inject constructor(private val dao: com.personaltracker.data.database.dao.MutualFundDao) : com.personaltracker.domain.repository.MutualFundRepository {
+    override fun getAll() = dao.getAll()
+    override fun getAllActive() = dao.getAllActive()
+    override fun getTotalSipAmount() = dao.getTotalSipAmount()
+    override fun getTotalLumpsumAmount() = dao.getTotalLumpsumAmount()
+    override suspend fun getById(id: Long) = dao.getById(id)
+    override suspend fun insert(entity: com.personaltracker.data.database.entity.MutualFundEntity) = dao.insert(entity)
+    override suspend fun update(entity: com.personaltracker.data.database.entity.MutualFundEntity) = dao.update(entity)
+    override suspend fun delete(entity: com.personaltracker.data.database.entity.MutualFundEntity) = dao.delete(entity)
+}
+
+class DepositRepositoryImpl @Inject constructor(private val dao: com.personaltracker.data.database.dao.DepositDao) : com.personaltracker.domain.repository.DepositRepository {
+    override fun getAll() = dao.getAll()
+    override fun getAllActive() = dao.getAllActive()
+    override fun getByType(type: com.personaltracker.data.database.entity.DepositType) = dao.getByType(type)
+    override fun getTotalDeposited() = dao.getTotalDeposited()
+    override suspend fun getById(id: Long) = dao.getById(id)
+    override suspend fun insert(entity: com.personaltracker.data.database.entity.DepositEntity) = dao.insert(entity)
+    override suspend fun update(entity: com.personaltracker.data.database.entity.DepositEntity) = dao.update(entity)
+    override suspend fun delete(entity: com.personaltracker.data.database.entity.DepositEntity) = dao.delete(entity)
+}
+
+class StockRepositoryImpl @Inject constructor(private val dao: com.personaltracker.data.database.dao.StockDao) : com.personaltracker.domain.repository.StockRepository {
+    override fun getAll() = dao.getAll()
+    override fun getAllActive() = dao.getAllActive()
+    override fun getTotalInvested() = dao.getTotalInvested()
+    override suspend fun getById(id: Long) = dao.getById(id)
+    override suspend fun insert(entity: com.personaltracker.data.database.entity.StockEntity) = dao.insert(entity)
+    override suspend fun update(entity: com.personaltracker.data.database.entity.StockEntity) = dao.update(entity)
+    override suspend fun delete(entity: com.personaltracker.data.database.entity.StockEntity) = dao.delete(entity)
+}
+
 class NoteRepositoryImpl @Inject constructor(private val dao: com.personaltracker.data.database.dao.NoteDao) : com.personaltracker.domain.repository.NoteRepository {
     override fun getAllNotes() = dao.getAllNotes()
     override fun searchNotes(query: String) = dao.searchNotes(query)

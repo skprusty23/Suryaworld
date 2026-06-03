@@ -83,6 +83,11 @@ private val modules = listOf(
     ModuleItem("Credentials", Icons.Default.Badge, Color(0xFF00897B), NavRoutes.CREDENTIALS),
     ModuleItem("Expenses", Icons.Default.ShoppingCart, ExpenseRed, NavRoutes.EXPENSES),
     ModuleItem("Investments", Icons.Default.TrendingUp, InvestmentPurple, NavRoutes.INVESTMENTS),
+    ModuleItem("Invest Hub", Icons.Default.AccountBalance, Color(0xFF1A237E), NavRoutes.INVESTMENT_HUB),
+    ModuleItem("Insurance", Icons.Default.HealthAndSafety, Color(0xFF1565C0), NavRoutes.INSURANCES),
+    ModuleItem("Mutual Funds", Icons.Default.Savings, Color(0xFF6A1B9A), NavRoutes.MUTUAL_FUNDS),
+    ModuleItem("Deposits", Icons.Default.AccountBalanceWallet, Color(0xFFE65100), NavRoutes.DEPOSITS),
+    ModuleItem("Stocks", Icons.Default.ShowChart, Color(0xFFB71C1C), NavRoutes.STOCKS),
     ModuleItem("EMI", Icons.Default.CreditCard, EmiOrange, NavRoutes.EMI),
     ModuleItem("Gold", Icons.Default.Star, GoldColor, NavRoutes.GOLD),
     ModuleItem("School", Icons.Default.School, Color(0xFF00ACC1), NavRoutes.SCHOOL),
@@ -102,7 +107,7 @@ private data class BottomNavItem(val label: String, val icon: ImageVector, val r
 private val bottomNavItems = listOf(
     BottomNavItem("Home", Icons.Default.Home, NavRoutes.DASHBOARD),
     BottomNavItem("Expenses", Icons.Default.ShoppingCart, NavRoutes.EXPENSES),
-    BottomNavItem("Invest", Icons.Default.TrendingUp, NavRoutes.INVESTMENTS),
+    BottomNavItem("Invest", Icons.Default.AccountBalance, NavRoutes.INVESTMENT_HUB),
     BottomNavItem("More", Icons.Default.MoreHoriz, NavRoutes.SETTINGS)
 )
 

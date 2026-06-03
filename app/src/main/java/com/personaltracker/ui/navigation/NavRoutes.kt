@@ -51,6 +51,33 @@ object NavRoutes {
     const val GROUP_DETAIL = "group_detail/{id}"
     const val ADD_GROUP = "add_group"
 
+    // Investment Hub
+    const val INVESTMENT_HUB = "investment_hub"
+
+    // Insurance
+    const val INSURANCES = "insurances"
+    const val INSURANCE_DETAIL = "insurance_detail/{id}"
+    const val ADD_INSURANCE = "add_insurance"
+    const val EDIT_INSURANCE = "edit_insurance/{id}"
+
+    // Mutual Funds
+    const val MUTUAL_FUNDS = "mutual_funds"
+    const val MUTUAL_FUND_DETAIL = "mutual_fund_detail/{id}"
+    const val ADD_MUTUAL_FUND = "add_mutual_fund"
+    const val EDIT_MUTUAL_FUND = "edit_mutual_fund/{id}"
+
+    // Deposits (RD / PPF / FD / NPS)
+    const val DEPOSITS = "deposits"
+    const val DEPOSIT_DETAIL = "deposit_detail/{id}"
+    const val ADD_DEPOSIT = "add_deposit"
+    const val EDIT_DEPOSIT = "edit_deposit/{id}"
+
+    // Stocks
+    const val STOCKS = "stocks"
+    const val STOCK_DETAIL = "stock_detail/{id}"
+    const val ADD_STOCK = "add_stock"
+    const val EDIT_STOCK = "edit_stock/{id}"
+
     // Notes
     const val NOTES = "notes"
     const val NOTE_DETAIL = "note_detail/{id}"
@@ -79,6 +106,14 @@ object NavRoutes {
     fun tripDetail(id: Long) = "trip_detail/$id"
     fun addTravelExpense(tripId: Long) = "add_travel_expense/$tripId"
     fun groupDetail(id: Long) = "group_detail/$id"
+    fun insuranceDetail(id: Long) = "insurance_detail/$id"
+    fun editInsurance(id: Long) = "edit_insurance/$id"
+    fun mutualFundDetail(id: Long) = "mutual_fund_detail/$id"
+    fun editMutualFund(id: Long) = "edit_mutual_fund/$id"
+    fun depositDetail(id: Long) = "deposit_detail/$id"
+    fun editDeposit(id: Long) = "edit_deposit/$id"
+    fun stockDetail(id: Long) = "stock_detail/$id"
+    fun editStock(id: Long) = "edit_stock/$id"
     fun noteDetail(id: Long) = "note_detail/$id"
     fun editNote(id: Long) = "edit_note/$id"
     fun eventDetail(id: Long) = "event_detail/$id"

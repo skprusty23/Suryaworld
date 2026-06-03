@@ -59,13 +59,15 @@ fun evaluatePasswordStrength(password: String): PasswordStrength? {
 
 data class AddCredentialState(
     val name: String = "",
-    val category: String = "Website",
+    val category: String = "Bank Account",
     val username: String = "",
     val password: String = "",
     val url: String = "",
     val email: String = "",
     val phone: String = "",
     val accountNumber: String = "",
+    val ifscCode: String = "",
+    val profilePassword: String = "",
     val notes: String = "",
     val isSaving: Boolean = false,
     val savedSuccessfully: Boolean = false,
@@ -89,6 +91,8 @@ class AddCredentialViewModel @Inject constructor(
     fun onEmailChange(v: String)         { _state.value = _state.value.copy(email = v) }
     fun onPhoneChange(v: String)         { _state.value = _state.value.copy(phone = v) }
     fun onAccountNumberChange(v: String) { _state.value = _state.value.copy(accountNumber = v) }
+    fun onIfscCodeChange(v: String)      { _state.value = _state.value.copy(ifscCode = v) }
+    fun onProfilePasswordChange(v: String) { _state.value = _state.value.copy(profilePassword = v) }
     fun onNotesChange(v: String)         { _state.value = _state.value.copy(notes = v) }
 
     fun save() {
@@ -106,6 +110,8 @@ class AddCredentialViewModel @Inject constructor(
             try {
                 val encryptedPassword = if (s.password.isNotBlank())
                     securityManager.encrypt(s.password) else null
+                val encryptedProfilePassword = if (s.profilePassword.isNotBlank())
+                    securityManager.encrypt(s.profilePassword) else null
 
                 val entity = CredentialEntity(
                     name              = s.name.trim(),
@@ -116,6 +122,8 @@ class AddCredentialViewModel @Inject constructor(
                     email             = s.email.trim().ifBlank { null },
                     phone             = s.phone.trim().ifBlank { null },
                     accountNumber     = s.accountNumber.trim().ifBlank { null },
+                    ifscCode          = s.ifscCode.trim().ifBlank { null },
+                    profilePassword   = encryptedProfilePassword,
                     notes             = s.notes.trim().ifBlank { null }
                 )
                 credentialRepository.insertCredential(entity)
@@ -130,7 +138,9 @@ class AddCredentialViewModel @Inject constructor(
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
 private val CREDENTIAL_CATEGORIES = listOf(
-    "Website", "Bank", "Insurance", "Subscription", "Note", "Other"
+    "Bank Account", "PPF", "NPS", "EPF/PF", "IRCTC", "Credit Card",
+    "Demat Account", "Mutual Fund Portal", "Insurance Portal",
+    "Government Services", "Email Account", "Social Media", "Other"
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -144,6 +154,7 @@ fun AddCredentialScreen(
 
     var showCategoryDropdown by remember { mutableStateOf(false) }
     var showPassword by remember { mutableStateOf(false) }
+    var showProfilePassword by remember { mutableStateOf(false) }
 
     val passwordStrength = remember(state.password) {
         evaluatePasswordStrength(state.password)
@@ -287,6 +298,37 @@ fun AddCredentialScreen(
                 onValueChange = viewModel::onAccountNumberChange,
                 label = { Text("Account Number") },
                 leadingIcon = { Icon(Icons.Default.CreditCard, null) },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+
+            // IFSC Code
+            OutlinedTextField(
+                value = state.ifscCode,
+                onValueChange = viewModel::onIfscCodeChange,
+                label = { Text("IFSC Code") },
+                leadingIcon = { Icon(Icons.Default.AccountBalance, null) },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+
+            // Profile / Transaction Password with show/hide
+            OutlinedTextField(
+                value = state.profilePassword,
+                onValueChange = viewModel::onProfilePasswordChange,
+                label = { Text("Profile / Transaction Password") },
+                leadingIcon = { Icon(Icons.Default.VpnKey, null) },
+                trailingIcon = {
+                    IconButton(onClick = { showProfilePassword = !showProfilePassword }) {
+                        Icon(
+                            imageVector = if (showProfilePassword) Icons.Default.VisibilityOff else Icons.Default.Visibility,
+                            contentDescription = if (showProfilePassword) "Hide profile password" else "Show profile password"
+                        )
+                    }
+                },
+                visualTransformation = if (showProfilePassword) VisualTransformation.None
+                                       else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )

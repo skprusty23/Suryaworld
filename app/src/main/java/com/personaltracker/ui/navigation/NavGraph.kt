@@ -31,6 +31,19 @@ import com.personaltracker.ui.screens.groups.GroupExpensesScreen
 import com.personaltracker.ui.screens.investments.AddInvestmentScreen
 import com.personaltracker.ui.screens.investments.InvestmentDetailScreen
 import com.personaltracker.ui.screens.investments.InvestmentsScreen
+import com.personaltracker.ui.screens.investments.InvestmentHubScreen
+import com.personaltracker.ui.screens.insurance.InsurancesScreen
+import com.personaltracker.ui.screens.insurance.AddInsuranceScreen
+import com.personaltracker.ui.screens.insurance.InsuranceDetailScreen
+import com.personaltracker.ui.screens.mutualfund.MutualFundsScreen
+import com.personaltracker.ui.screens.mutualfund.AddMutualFundScreen
+import com.personaltracker.ui.screens.mutualfund.MutualFundDetailScreen
+import com.personaltracker.ui.screens.deposits.DepositsScreen
+import com.personaltracker.ui.screens.deposits.AddDepositScreen
+import com.personaltracker.ui.screens.deposits.DepositDetailScreen
+import com.personaltracker.ui.screens.stocks.StocksScreen
+import com.personaltracker.ui.screens.stocks.AddStockScreen
+import com.personaltracker.ui.screens.stocks.StockDetailScreen
 import com.personaltracker.ui.screens.school.AddSchoolExpenseScreen
 import com.personaltracker.ui.screens.school.SchoolScreen
 import com.personaltracker.ui.screens.events.AddEventScreen
@@ -176,6 +189,113 @@ fun WealthHubNavGraph() {
                 onBack = { navController.popBackStack() },
                 onDeleted = { navController.popBackStack() }
             )
+        }
+
+        // ── Investment Hub ────────────────────────────────────────────────────
+        composable(NavRoutes.INVESTMENT_HUB) {
+            InvestmentHubScreen(
+                onBack = { navController.popBackStack() },
+                onNavigateToInsurance = { navController.navigate(NavRoutes.INSURANCES) },
+                onNavigateToMutualFunds = { navController.navigate(NavRoutes.MUTUAL_FUNDS) },
+                onNavigateToDeposits = { navController.navigate(NavRoutes.DEPOSITS) },
+                onNavigateToStocks = { navController.navigate(NavRoutes.STOCKS) }
+            )
+        }
+
+        // ── Insurance ─────────────────────────────────────────────────────────
+        composable(NavRoutes.INSURANCES) {
+            InsurancesScreen(
+                onNavigateToAdd = { navController.navigate(NavRoutes.ADD_INSURANCE) },
+                onNavigateToDetail = { id -> navController.navigate(NavRoutes.insuranceDetail(id)) },
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(NavRoutes.ADD_INSURANCE) {
+            AddInsuranceScreen(onBack = { navController.popBackStack() })
+        }
+        composable(NavRoutes.INSURANCE_DETAIL,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            InsuranceDetailScreen(
+                id = back.arguments!!.getLong("id"),
+                onBack = { navController.popBackStack() },
+                onEdit = { id -> navController.navigate(NavRoutes.editInsurance(id)) }
+            )
+        }
+        composable(NavRoutes.EDIT_INSURANCE,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            AddInsuranceScreen(editId = back.arguments!!.getLong("id"), onBack = { navController.popBackStack() })
+        }
+
+        // ── Mutual Funds ──────────────────────────────────────────────────────
+        composable(NavRoutes.MUTUAL_FUNDS) {
+            MutualFundsScreen(
+                onNavigateToAdd = { navController.navigate(NavRoutes.ADD_MUTUAL_FUND) },
+                onNavigateToDetail = { id -> navController.navigate(NavRoutes.mutualFundDetail(id)) },
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(NavRoutes.ADD_MUTUAL_FUND) {
+            AddMutualFundScreen(onBack = { navController.popBackStack() })
+        }
+        composable(NavRoutes.MUTUAL_FUND_DETAIL,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            MutualFundDetailScreen(
+                id = back.arguments!!.getLong("id"),
+                onBack = { navController.popBackStack() },
+                onEdit = { id -> navController.navigate(NavRoutes.editMutualFund(id)) }
+            )
+        }
+        composable(NavRoutes.EDIT_MUTUAL_FUND,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            AddMutualFundScreen(editId = back.arguments!!.getLong("id"), onBack = { navController.popBackStack() })
+        }
+
+        // ── Deposits (RD / PPF / FD / NPS) ───────────────────────────────────
+        composable(NavRoutes.DEPOSITS) {
+            DepositsScreen(
+                onNavigateToAdd = { navController.navigate(NavRoutes.ADD_DEPOSIT) },
+                onNavigateToDetail = { id -> navController.navigate(NavRoutes.depositDetail(id)) },
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(NavRoutes.ADD_DEPOSIT) {
+            AddDepositScreen(onBack = { navController.popBackStack() })
+        }
+        composable(NavRoutes.DEPOSIT_DETAIL,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            DepositDetailScreen(
+                id = back.arguments!!.getLong("id"),
+                onBack = { navController.popBackStack() },
+                onEdit = { id -> navController.navigate(NavRoutes.editDeposit(id)) }
+            )
+        }
+        composable(NavRoutes.EDIT_DEPOSIT,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            AddDepositScreen(editId = back.arguments!!.getLong("id"), onBack = { navController.popBackStack() })
+        }
+
+        // ── Stocks ────────────────────────────────────────────────────────────
+        composable(NavRoutes.STOCKS) {
+            StocksScreen(
+                onNavigateToAdd = { navController.navigate(NavRoutes.ADD_STOCK) },
+                onNavigateToDetail = { id -> navController.navigate(NavRoutes.stockDetail(id)) },
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(NavRoutes.ADD_STOCK) {
+            AddStockScreen(onBack = { navController.popBackStack() })
+        }
+        composable(NavRoutes.STOCK_DETAIL,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            StockDetailScreen(
+                id = back.arguments!!.getLong("id"),
+                onBack = { navController.popBackStack() },
+                onEdit = { id -> navController.navigate(NavRoutes.editStock(id)) }
+            )
+        }
+        composable(NavRoutes.EDIT_STOCK,
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            AddStockScreen(editId = back.arguments!!.getLong("id"), onBack = { navController.popBackStack() })
         }
 
         // ── EMI ───────────────────────────────────────────────────────────────

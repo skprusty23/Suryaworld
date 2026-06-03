@@ -15,6 +15,8 @@ data class CredentialEntity(
     val email: String? = null,
     val phone: String? = null,
     val accountNumber: String? = null,
+    val ifscCode: String? = null,
+    val profilePassword: String? = null,
     val notes: String? = null,
     val isFavorite: Boolean = false,
     val createdAt: LocalDateTime = LocalDateTime.now(),
