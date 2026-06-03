@@ -278,6 +278,7 @@ fun CredentialDetailScreen(
                             // Password with show/hide and copy
                             if (state.decryptedPassword.isNotEmpty()) {
                                 CredPasswordRow(
+                                    label = "Password",
                                     password = state.decryptedPassword,
                                     showPassword = showPassword,
                                     onToggleVisibility = { showPassword = !showPassword },
@@ -439,6 +440,7 @@ private fun CredDetailRowWithCopy(
 
 @Composable
 private fun CredPasswordRow(
+    label: String = "Password",
     password: String,
     showPassword: Boolean,
     onToggleVisibility: () -> Unit,
@@ -454,7 +456,7 @@ private fun CredPasswordRow(
             modifier = Modifier.size(20.dp))
         Spacer(Modifier.width(12.dp))
         Column(modifier = Modifier.weight(1f)) {
-            Text("Password", style = MaterialTheme.typography.labelMedium,
+            Text(label, style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text(
                 text = if (showPassword) password else "•".repeat(password.length.coerceAtMost(16)),
@@ -467,12 +469,12 @@ private fun CredPasswordRow(
         IconButton(onClick = onToggleVisibility, modifier = Modifier.size(40.dp)) {
             Icon(
                 imageVector = if (showPassword) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                contentDescription = if (showPassword) "Hide password" else "Show password",
+                contentDescription = if (showPassword) "Hide $label" else "Show $label",
                 modifier = Modifier.size(18.dp)
             )
         }
         IconButton(onClick = onCopy, modifier = Modifier.size(40.dp)) {
-            Icon(Icons.Default.ContentCopy, contentDescription = "Copy password",
+            Icon(Icons.Default.ContentCopy, contentDescription = "Copy $label",
                 modifier = Modifier.size(18.dp), tint = MaterialTheme.colorScheme.primary)
         }
     }

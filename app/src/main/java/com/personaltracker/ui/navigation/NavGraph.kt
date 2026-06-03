@@ -205,8 +205,8 @@ fun WealthHubNavGraph() {
         // ── Insurance ─────────────────────────────────────────────────────────
         composable(NavRoutes.INSURANCES) {
             InsurancesScreen(
-                onNavigateToAdd = { navController.navigate(NavRoutes.ADD_INSURANCE) },
-                onNavigateToDetail = { id -> navController.navigate(NavRoutes.insuranceDetail(id)) },
+                onAddInsurance = { navController.navigate(NavRoutes.ADD_INSURANCE) },
+                onInsuranceDetail = { id -> navController.navigate(NavRoutes.insuranceDetail(id)) },
                 onBack = { navController.popBackStack() }
             )
         }
@@ -223,7 +223,10 @@ fun WealthHubNavGraph() {
         }
         composable(NavRoutes.EDIT_INSURANCE,
             arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
-            AddInsuranceScreen(editId = back.arguments!!.getLong("id"), onBack = { navController.popBackStack() })
+            AddInsuranceScreen(
+                editId = back.arguments!!.getLong("id"),
+                onBack = { navController.popBackStack() }
+            )
         }
 
         // ── Mutual Funds ──────────────────────────────────────────────────────
@@ -235,19 +238,26 @@ fun WealthHubNavGraph() {
             )
         }
         composable(NavRoutes.ADD_MUTUAL_FUND) {
-            AddMutualFundScreen(onBack = { navController.popBackStack() })
+            AddMutualFundScreen(
+                onBack = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
+            )
         }
         composable(NavRoutes.MUTUAL_FUND_DETAIL,
-            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) {
+            // MutualFundDetailViewModel reads id from SavedStateHandle
             MutualFundDetailScreen(
-                id = back.arguments!!.getLong("id"),
                 onBack = { navController.popBackStack() },
-                onEdit = { id -> navController.navigate(NavRoutes.editMutualFund(id)) }
+                onDeleted = { navController.popBackStack() }
             )
         }
         composable(NavRoutes.EDIT_MUTUAL_FUND,
-            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
-            AddMutualFundScreen(editId = back.arguments!!.getLong("id"), onBack = { navController.popBackStack() })
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) {
+            // ViewModel reads editId from SavedStateHandle
+            AddMutualFundScreen(
+                onBack = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
+            )
         }
 
         // ── Deposits (RD / PPF / FD / NPS) ───────────────────────────────────
@@ -264,14 +274,15 @@ fun WealthHubNavGraph() {
         composable(NavRoutes.DEPOSIT_DETAIL,
             arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
             DepositDetailScreen(
-                id = back.arguments!!.getLong("id"),
+                depositId = back.arguments!!.getLong("id"),
                 onBack = { navController.popBackStack() },
-                onEdit = { id -> navController.navigate(NavRoutes.editDeposit(id)) }
+                onNavigateToEdit = { id -> navController.navigate(NavRoutes.editDeposit(id)) }
             )
         }
         composable(NavRoutes.EDIT_DEPOSIT,
-            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
-            AddDepositScreen(editId = back.arguments!!.getLong("id"), onBack = { navController.popBackStack() })
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) {
+            // ViewModel reads editId from SavedStateHandle
+            AddDepositScreen(onBack = { navController.popBackStack() })
         }
 
         // ── Stocks ────────────────────────────────────────────────────────────
@@ -283,19 +294,26 @@ fun WealthHubNavGraph() {
             )
         }
         composable(NavRoutes.ADD_STOCK) {
-            AddStockScreen(onBack = { navController.popBackStack() })
+            AddStockScreen(
+                onBack = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
+            )
         }
         composable(NavRoutes.STOCK_DETAIL,
-            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) {
+            // StockDetailViewModel reads id from SavedStateHandle
             StockDetailScreen(
-                id = back.arguments!!.getLong("id"),
                 onBack = { navController.popBackStack() },
-                onEdit = { id -> navController.navigate(NavRoutes.editStock(id)) }
+                onEdit = { id -> navController.navigate(NavRoutes.editStock(id)) },
+                onDeleted = { navController.popBackStack() }
             )
         }
         composable(NavRoutes.EDIT_STOCK,
-            arguments = listOf(navArgument("id") { type = NavType.LongType })) { back ->
-            AddStockScreen(editId = back.arguments!!.getLong("id"), onBack = { navController.popBackStack() })
+            arguments = listOf(navArgument("id") { type = NavType.LongType })) {
+            AddStockScreen(
+                onBack = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
+            )
         }
 
         // ── EMI ───────────────────────────────────────────────────────────────
