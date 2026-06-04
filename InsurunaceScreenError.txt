@@ -1,0 +1,4 @@
+com/personaltracker/ui/screens/insurance/InsurancesScreen.kt:277:25 
+com/personaltracker/ui/screens/insurance/InsurancesScreen.kt:278:25 No parameter with name 'subtitle' found.
+com/personaltracker/ui/screens/insurance/InsurancesScreen.kt:278:25 No value passed for parameter 'message'
+com/personaltracker/ui/screens/insurance/InsurancesScreen.kt:1061:13 No parameter with name 'itemName' found.
