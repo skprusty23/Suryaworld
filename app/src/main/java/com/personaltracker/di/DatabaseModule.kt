@@ -1,7 +1,6 @@
 package com.personaltracker.di
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.personaltracker.data.database.AppDatabase
@@ -19,9 +18,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-    private const val DB_NAME = "personal_tracker.db"
-    private const val TAG = "DatabaseModule"
-
     @Provides
     @Singleton
     fun provideAppDatabase(
@@ -29,33 +25,8 @@ object DatabaseModule {
         securityManager: SecurityManager
     ): AppDatabase {
         val passphrase = securityManager.getOrCreateDatabaseKey()
-
-        // Validate the encryption key against the existing DB file before Room opens it.
-        // If SQLCipher reports "file is not a database", the key is stale (e.g. after
-        // app data cleared on device but DB file survived, or KeyStore key was invalidated).
-        // In that case, delete the corrupt/mismatched file so Room starts fresh.
-        val dbFile = context.getDatabasePath(DB_NAME)
-        if (dbFile.exists()) {
-            try {
-                SQLiteDatabase.loadLibs(context)
-                val testDb = SQLiteDatabase.openDatabase(
-                    dbFile.absolutePath,
-                    passphrase,
-                    null,
-                    SQLiteDatabase.OPEN_READONLY
-                )
-                testDb.close()
-            } catch (e: Exception) {
-                Log.w(TAG, "DB key mismatch or corruption detected — deleting and recreating: ${e.message}")
-                // Delete main DB file plus WAL/SHM journal files
-                dbFile.delete()
-                context.getDatabasePath("$DB_NAME-wal").delete()
-                context.getDatabasePath("$DB_NAME-shm").delete()
-            }
-        }
-
         val factory = SupportFactory(passphrase)
-        return Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
+        return Room.databaseBuilder(context, AppDatabase::class.java, "personal_tracker.db")
             .openHelperFactory(factory)
             .addMigrations(AppDatabase.MIGRATION_1_2, AppDatabase.MIGRATION_2_3, AppDatabase.MIGRATION_3_4)
             .build()
