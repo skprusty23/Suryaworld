@@ -198,7 +198,8 @@ fun WealthHubNavGraph() {
                 onNavigateToInsurance = { navController.navigate(NavRoutes.INSURANCES) },
                 onNavigateToMutualFunds = { navController.navigate(NavRoutes.MUTUAL_FUNDS) },
                 onNavigateToDeposits = { navController.navigate(NavRoutes.DEPOSITS) },
-                onNavigateToStocks = { navController.navigate(NavRoutes.STOCKS) }
+                onNavigateToStocks = { navController.navigate(NavRoutes.STOCKS) },
+                onNavigateToOldInvestments = { navController.navigate(NavRoutes.INVESTMENTS) }
             )
         }
 

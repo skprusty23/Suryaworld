@@ -236,6 +236,7 @@ fun InvestmentHubScreen(
     onNavigateToMutualFunds: () -> Unit,
     onNavigateToDeposits: () -> Unit,
     onNavigateToStocks: () -> Unit,
+    onNavigateToOldInvestments: () -> Unit = {},
     viewModel: InvestmentHubViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -254,7 +255,7 @@ fun InvestmentHubScreen(
         SummaryCardData(
             title = "Insurance Coverage",
             amount = state.totalInsuranceCoverage,
-            icon = Icons.Default.HealthAndSafety,
+            icon = Icons.Default.Favorite,
             gradientStart = blueStart,
             gradientEnd = blueEnd,
             subtitle = "Total sum assured (active policies)"
@@ -262,7 +263,7 @@ fun InvestmentHubScreen(
         SummaryCardData(
             title = "Mutual Funds",
             amount = state.totalMfInvestment,
-            icon = Icons.Default.ShowChart,
+            icon = Icons.Default.TrendingUp,
             gradientStart = purpleStart,
             gradientEnd = purpleEnd,
             subtitle = "SIP + Lumpsum invested"
@@ -310,7 +311,7 @@ fun InvestmentHubScreen(
         CategoryTileData(
             title = "Mutual Funds",
             description = "SIP & lumpsum funds",
-            icon = Icons.Default.ShowChart,
+            icon = Icons.Default.Savings,
             color = Color(0xFF6A1B9A),
             onClick = onNavigateToMutualFunds
         ),
@@ -327,6 +328,13 @@ fun InvestmentHubScreen(
             icon = Icons.Default.TrendingUp,
             color = Color(0xFFB71C1C),
             onClick = onNavigateToStocks
+        ),
+        CategoryTileData(
+            title = "My Investments",
+            description = "General investment records",
+            icon = Icons.Default.AttachMoney,
+            color = Color(0xFF37474F),
+            onClick = onNavigateToOldInvestments
         )
     )
 
