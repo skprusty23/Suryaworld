@@ -274,8 +274,7 @@ fun InsurancesScreen(
                 item {
                     EmptyState(
                         icon = Icons.Default.Shield,
-                        title = "No insurance policies",
-                        subtitle = "Tap + to add your first policy"
+                        message = "No insurance policies yet. Tap + to add your first policy."
                     )
                 }
             } else {
@@ -1058,7 +1057,8 @@ fun InsuranceDetailScreen(
 
     if (showDeleteDialog) {
         ConfirmDeleteDialog(
-            itemName = state.entity?.policyName ?: "this policy",
+            title = "Delete Policy?",
+            message = "Delete \"${state.entity?.policyName ?: "this policy"}\"? This cannot be undone.",
             onConfirm = {
                 showDeleteDialog = false
                 viewModel.delete()
